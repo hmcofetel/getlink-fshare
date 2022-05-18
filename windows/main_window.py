@@ -19,18 +19,20 @@ class MainWindow(Client, PLayVLC):
 		self.win()
 
 	def save_buffer(self):
-		del self.buffer[self.buffer_index+1:]
-		buffer = {
-			'input_link':self.input_link.get(),
-			'name_main_folder': self.name_main_folder.get(),
-			'url_download':self.url_download.get(),
-			'count_folder':self.count_folder.get(),
-			'page_folder':self.page_folder.get(),
-			'url_item':self.url_item.get(),
-			'listbox':self.items
-		} 
-		self.buffer.append(buffer)
-		self.buffer_index +=1
+		try:
+			buffer = {
+				'input_link':self.input_link.get(),
+				'name_main_folder': self.name_main_folder.get(),
+				'url_download':self.url_download.get(),
+				'count_folder':self.count_folder.get(),
+				'page_folder':self.page_folder.get(),
+				'url_item':self.url_item.get(),
+				'listbox':self.items
+			} 
+			del self.buffer[self.buffer_index+1:]
+			self.buffer.append(buffer)
+			self.buffer_index +=1
+		except: pass
 	
 	def get_buffer(self):
 		self.input_link.delete(0,END)
@@ -380,7 +382,16 @@ class MainWindow(Client, PLayVLC):
 				temp['furl'] = item
 				self.items.append(temp)
 			except: pass
+		if len(self.items) == 0:
+			item = {
+				'file_type':'1',
+				'name':'No Result',
+				'size':'0',
+				'mimetype':''
 
+			}
+			self.items.append(item)
+			
 		self.insert_listbox()
 
 
