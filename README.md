@@ -6,3 +6,5 @@ In the **key.json** file:
  + **CX** : take from https://cse.google.com/all (Note to run the application, you must configure the search engine with the website www.fshare.vn)
  
 Run **main.py** file with Python or run **main.exe**
+
+Demo: https://www.youtube.com/watch?v=nKGkB3K_z4s
