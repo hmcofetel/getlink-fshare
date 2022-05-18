@@ -375,9 +375,11 @@ class MainWindow(Client, PLayVLC):
 		data = self.load_data()
 		self.items = []
 		for item in items_search:
-			temp = self.get_file_infor(item,data['token'], data['session'])
-			temp['furl'] = item
-			self.items.append(temp)
+			try:
+				temp = self.get_file_infor(item,data['token'], data['session'])
+				temp['furl'] = item
+				self.items.append(temp)
+			except: pass
 
 		self.insert_listbox()
 
