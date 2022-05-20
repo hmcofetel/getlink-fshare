@@ -3,9 +3,10 @@ sys.path.append('../')
 sys.path.append('../services')
 from tkinter import *
 import tkinter.messagebox as tkmsg 
-from windows.giff_frame import GifFrame
+from windows.gif_frame import GifFrame
 from services.client import Client
 from services.play_vlc import PLayVLC
+from services.thuvienhd import ThuVienHD
 import threading
 import pyperclip
 
@@ -82,7 +83,6 @@ class MainWindow(Client, PLayVLC):
 			tkmsg.showerror(message = 'Wrong url !', title = 'Error')
 
 		
-
 	def handle_threading(self):
 		self.listbox_frame.pack_forget()
 		self.giff_frame.pack(fill = BOTH, expand = True)
@@ -99,9 +99,6 @@ class MainWindow(Client, PLayVLC):
 
 		threading.Thread(target = self.handle_threading).start()
 
-
-
-		
 
 	def get_link_item(self):
 		data = self.load_data()
@@ -144,7 +141,6 @@ class MainWindow(Client, PLayVLC):
 	def insert_listbox(self):
 		for item in self.items:
 			self.insert_item_listbox(item)
-
 
 	def insert_item_listbox(self, item):
 		if item['file_type'] == '1':
@@ -235,10 +231,12 @@ class MainWindow(Client, PLayVLC):
 	def win_function(self):
 		function_frame = Frame(self.master)
 
+
 		search_frame = Frame(function_frame)
 		Button(search_frame, text = 'Search', command =lambda: threading.Thread(target = self.btn_search).start()).pack(side = RIGHT)
 		self.q_search = Entry(search_frame, width = 50)
 		self.q_search.pack(side = RIGHT)
+		Button(search_frame, text = 'ThuVienHD', command =lambda: threading.Thread(target =  self.show_thuvienhd).start()).pack(side =LEFT)
 		search_frame.pack(side = TOP, expand = True, fill = BOTH)
 
 
@@ -369,8 +367,6 @@ class MainWindow(Client, PLayVLC):
 		for item in self.items:
 			self.insert_item_listbox(item)
 
-
-
 	def threading_search(self):
 		self.del_all_win()
 		items_search = self.get_items_search(self.q_search.get())
@@ -394,8 +390,6 @@ class MainWindow(Client, PLayVLC):
 			
 		self.insert_listbox()
 
-
-
 	def btn_search(self):
 		self.listbox_frame.pack_forget()
 		self.giff_frame.pack(fill = BOTH, expand = True)
@@ -405,10 +399,6 @@ class MainWindow(Client, PLayVLC):
 		self.listbox_frame.pack(fill = BOTH, expand = True)
 		self.giff_frame.pack_forget()
 		self.save_buffer()
-
-
-		
-
 
 
 	def del_all_win(self):
@@ -425,5 +415,32 @@ class MainWindow(Client, PLayVLC):
 		self.listbox_name.yview(*args)
 		self.listbox_size.yview(*args)
 		self.listbox_file_type.yview(*args)
+
+
+	def show_thuvienhd(self):
+		items_search = ThuVienHD(self.master).show()
+		self.del_all_win()
+		data = self.load_data()
+		self.items = []
+		for item in items_search:
+			try:
+				temp = self.get_file_infor(item,data['token'], data['session'])
+				temp['furl'] = item
+				self.items.append(temp)
+			except: pass
+		if len(self.items) == 0:
+			item = {
+				'file_type':'1',
+				'name':'No Result',
+				'size':'0',
+				'mimetype':''
+
+			}
+			self.items.append(item)
+			
+		self.insert_listbox()
+
+
+		
 
 

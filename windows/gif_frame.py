@@ -2,8 +2,8 @@ from tkinter import *
 
 
 class GifFrame(Frame):
-	def __init__(self, master, path):
-		Frame.__init__(self,master)
+	def __init__(self, master, path, **kwargs):
+		Frame.__init__(self,master, **kwargs)
 		self.path = path
 		self.framelist = []      
 		self.frame_index = 0 
@@ -11,7 +11,7 @@ class GifFrame(Frame):
 		self.anim = None
 		self.list_gif_frames =[]
 		self.load_frame()
-		self.lb = Label(self, image = "")
+		self.lb = Label(self, image = "", **kwargs)
 		self.lb.pack()
 		
 		
