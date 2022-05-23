@@ -234,9 +234,10 @@ class MainWindow(Client, PLayVLC):
 
 
 		search_frame = Frame(function_frame)
-		Button(search_frame, text = 'Search', command =lambda: threading.Thread(target = self.btn_search).start()).pack(side = RIGHT)
 		self.q_search = Entry(search_frame, width = 50)
 		self.q_search.pack(side = RIGHT)
+		self.q_search.bind('<Return>', lambda e:threading.Thread(target = self.btn_search).start())
+		Label(search_frame, text = '🔎' ).pack(side = RIGHT)
 		Button(search_frame, text = 'ThuVienHD', command =lambda: threading.Thread(target =  self.show_thuvienhd).start()).pack(side =LEFT)
 		search_frame.pack(side = TOP, expand = True, fill = BOTH)
 
@@ -271,8 +272,8 @@ class MainWindow(Client, PLayVLC):
 		self.button_cp_link = Button(play_link_frame, text = 'Copy link', command = lambda:pyperclip.copy(self.url_download.get()))
 		self.button_cp_link.pack(side = LEFT)
 		Label(play_link_frame, text = 'Path Sub').pack(side = LEFT)
-		self.path_sub = Entry(play_link_frame)
-		self.path_sub.pack(side = LEFT)
+		self.path_sub = Entry(play_link_frame, width = 50)
+		self.path_sub.pack(side = LEFT, fill = X)
 		Button(play_link_frame,text = 'Find Sub', command =  lambda: threading.Thread(target = self.show_subscene).start()).pack(side =  LEFT)
 
 		play_link_frame.pack(side = TOP,fill = BOTH )

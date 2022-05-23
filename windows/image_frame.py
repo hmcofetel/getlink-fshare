@@ -17,8 +17,3 @@ class ImageFrame(Frame):
 
 
 
-if __name__ == '__main__':
-	root = Tk()
-	image =  ImageFrame(root,"https://thuvienhd.com/wp-content/uploads/2022/05/MV5BYWMyOWE0NmEtODg4My00NjY1LTk0NzAtNWEwYWY2YmE2NWRkXkEyXkFqcGdeQXVyNDM1ODc2NzE@._V1_SX1024_AL_-225x315.jpg")
-	image.pack()
-	root.mainloop()
