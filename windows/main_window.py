@@ -7,6 +7,7 @@ from windows.gif_frame import GifFrame
 from services.client import Client
 from services.play_vlc import PLayVLC
 from services.thuvienhd import ThuVienHD
+from services.subscene import Subscene
 import threading
 import pyperclip
 
@@ -265,10 +266,15 @@ class MainWindow(Client, PLayVLC):
 		Label(play_link_frame, text = 'URL Download: ').pack(side = LEFT)
 		self.url_download = Entry(play_link_frame, width = 70,justify = LEFT )
 		self.url_download.pack(side = LEFT)
-		self.button_play = Button(play_link_frame, text ='Play', command = lambda: threading.Thread(target=self.play_media, args=(self.url_download.get(),)).start() )
+		self.button_play = Button(play_link_frame, text ='Play', command = lambda: threading.Thread(target= lambda: self.play_media(url =self.url_download.get(), path_sub = self.path_sub.get() )).start() )
 		self.button_play.pack(side = LEFT)
 		self.button_cp_link = Button(play_link_frame, text = 'Copy link', command = lambda:pyperclip.copy(self.url_download.get()))
 		self.button_cp_link.pack(side = LEFT)
+		Label(play_link_frame, text = 'Path Sub').pack(side = LEFT)
+		self.path_sub = Entry(play_link_frame)
+		self.path_sub.pack(side = LEFT)
+		Button(play_link_frame,text = 'Find Sub', command =  lambda: threading.Thread(target = self.show_subscene).start()).pack(side =  LEFT)
+
 		play_link_frame.pack(side = TOP,fill = BOTH )
 
 		status_frame = Frame(function_frame)
@@ -439,6 +445,14 @@ class MainWindow(Client, PLayVLC):
 			self.items.append(item)
 			
 		self.insert_listbox()
+
+
+	def show_subscene(self):
+		path_sub = Subscene(self.master).show()
+		print(path_sub)
+		self.path_sub.delete(0, END)
+		self.path_sub.insert(END, path_sub)
+		pass
 
 
 		
