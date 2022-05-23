@@ -12,6 +12,7 @@ class LoginWindow(Client):
 	def __init__(self, master):
 		super().__init__()
 		self.master = master
+		self.master.iconbitmap('logo.ico')
 		self.menu()
 		self.insert_data_entry()
 		

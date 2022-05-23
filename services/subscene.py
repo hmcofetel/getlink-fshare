@@ -11,6 +11,8 @@ from zipfile import ZipFile
 class Subscene():
 	def __init__(self, master):
 		self.master = Toplevel(master)
+		self.master.iconbitmap('logo.ico')
+		self.master.geometry('800x600')
 		self.items =  []
 		self.subs = []
 		self.path_sub = ''
@@ -37,16 +39,17 @@ class Subscene():
 		self.frame_listbox.pack(expand = True, fill = BOTH)
 		self.loading_gif.pack_forget()
 
-
-		
-
-
 	def frame_menu(self):
 		frame_menu = Frame(self.master)
 		frame_menu.pack(side = TOP, fill = X)
-		self.q_entry =  Entry(frame_menu)
-		self.q_entry.pack(side = TOP,anchor = W)
+		frame_search = Frame(frame_menu)
+		frame_search.pack(side = TOP)
+
+		self.q_entry =  Entry(frame_search)
+		self.q_entry.pack(side = LEFT,anchor = W)
 		self.q_entry.bind('<Return>',lambda e:self.thread_click(self.search_sub, self.q_entry.get()) )
+		Label(frame_search, text = '🔍').pack(side = LEFT)
+
 		Button(frame_menu, text  = 'Downloaded Subs', command = lambda:self.thread_click(self.list_download)).pack(side = TOP, anchor =  W)
 
 	def list_download(self):

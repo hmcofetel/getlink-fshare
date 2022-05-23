@@ -15,6 +15,7 @@ class MainWindow(Client, PLayVLC):
 	def __init__ (self, master):
 		super().__init__()
 		self.master = master
+		self.master.iconbitmap('logo.ico')
 		self.master.title('Fshare Getlink Tool')
 		self.buffer = []
 		self.buffer_index = -1

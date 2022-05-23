@@ -17,6 +17,7 @@ import time
 class ThuVienHD():
 	def __init__(self, master):
 		self.master = Toplevel(master)
+		self.master.iconbitmap('logo.ico')
 		self.master.title('ThuVienHD.com')
 		self.master.configure(background=BG_ITEMS)
 		self.contain_url = []
